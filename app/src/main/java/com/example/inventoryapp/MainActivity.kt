@@ -13,7 +13,9 @@ import com.example.inventoryapp.data.ItemsDatasource
 import com.example.inventoryapp.models.Item
 import com.example.inventoryapp.navigation.ItemNavigation
 import com.example.inventoryapp.ui.theme.InventoryAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
