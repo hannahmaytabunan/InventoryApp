@@ -2,12 +2,13 @@ package com.example.inventoryapp.data
 
 import androidx.room.*
 import com.example.inventoryapp.models.Item
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface InventoryDatabaseDao {
 
     @Query("SELECT * from items_tbl")
-    fun getItems(): List<Item>
+    fun getItems(): Flow<List<Item>>
 
     @Query("SELECT * from items_tbl where id = :id")
     suspend fun getItemById(id: String): Item
