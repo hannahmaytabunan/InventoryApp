@@ -10,17 +10,17 @@ interface InventoryDatabaseDao {
     fun getItems(): List<Item>
 
     @Query("SELECT * from items_tbl where id = :id")
-    fun getItemById(id: String): Item
+    suspend fun getItemById(id: String): Item
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: Item)
+    suspend fun insert(item: Item)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(item: Item)
+    suspend fun update(item: Item)
 
     @Query("DELETE from items_tbl")
-    fun deleteAll()
+    suspend fun deleteAll()
 
     @Delete
-    fun delete(item: Item)
+    suspend fun delete(item: Item)
 }
