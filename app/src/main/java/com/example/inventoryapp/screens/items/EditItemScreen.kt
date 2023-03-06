@@ -2,6 +2,7 @@ package com.example.inventoryapp.screens.items
 
 import android.annotation.SuppressLint
 import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,9 +24,11 @@ import com.example.inventoryapp.models.Item
 @Composable
 fun EditItemScreen(
     navController: NavController,
-    itemData: String?,
-    onEditItem: (Item) -> Unit
+    itemID: String,
+    onUpdateItem: (Item) -> Unit
 ) {
+    /*TODO: EDIT ITEM*/
+
     var name by remember {
         mutableStateOf("")
     }
@@ -37,16 +40,17 @@ fun EditItemScreen(
     }
     val context = LocalContext.current
 
+
     Scaffold(topBar = {
         TopAppBar(
             title = {
-                Text(text = "Create Item", color = Color.White)
+                Text(text = "Edit Item", color = Color.White)
             },
             navigationIcon = {
                 Icon(imageVector = Icons.Rounded.ArrowBack,
                     contentDescription = "Arrow Back Icon",
                     tint = Color.White,
-//                    modifier = Modifier.clickable { navController.popBackStack() }
+                    modifier = Modifier.clickable { navController.popBackStack() }
                 )
             },
             actions = {
@@ -54,7 +58,7 @@ fun EditItemScreen(
                     text = "SAVE",
                     onClick = {
                         if (name.isNotEmpty() && price.isNaN()) {
-                            onEditItem(
+                            onUpdateItem(
                                 Item(
                                     name = name,
                                     price = price,

@@ -55,7 +55,11 @@ fun ListItemScreen(
     ) {
         LazyColumn {
             items(list) { item ->
-                ItemRow(item = item, onItemClicked = {})
+                ItemRow(item = item, onItemClicked = {
+                    navController.navigate(
+                        route = Itemscreens.EditItemScreen.name+"/${item.id}"
+                    )
+                })
             }
         }
     }

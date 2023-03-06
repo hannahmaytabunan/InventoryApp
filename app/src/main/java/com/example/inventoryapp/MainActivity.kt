@@ -39,6 +39,9 @@ fun InventoryApp(itemViewModel: ItemViewModel) {
         items = itemsList,
         onAddItem = {
             itemViewModel.addItem(it)
+        },
+        onUpdateItem = {
+            itemViewModel.updateItem(it)
         }
     )
 }

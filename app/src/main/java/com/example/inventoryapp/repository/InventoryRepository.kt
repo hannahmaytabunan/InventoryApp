@@ -13,5 +13,6 @@ class InventoryRepository @Inject constructor(private val inventoryDatabaseDao: 
     suspend fun updateItem(item: Item) = inventoryDatabaseDao.update(item)
     suspend fun deleteItem(item: Item) = inventoryDatabaseDao.delete(item)
     suspend fun deleteAllItems() = inventoryDatabaseDao.deleteAll()
+    suspend fun getItem(id: String) = inventoryDatabaseDao.getItemById(id)
     fun getAllItems(): Flow<List<Item>> = inventoryDatabaseDao.getItems().flowOn(Dispatchers.IO).conflate()
 }

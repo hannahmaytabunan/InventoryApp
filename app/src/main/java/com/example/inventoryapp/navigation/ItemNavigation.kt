@@ -18,7 +18,8 @@ import com.example.inventoryapp.screens.items.ListItemScreen
 @Composable
 fun ItemNavigation(
     items: List<Item>,
-    onAddItem: (Item) -> Unit
+    onAddItem: (Item) -> Unit,
+    onUpdateItem: (Item) -> Unit
 ) {
     val navController = rememberNavController()
     NavHost(
@@ -46,14 +47,20 @@ fun ItemNavigation(
         }
 
 //        www.google.com/details-screen/id=34
-//        composable(
-//            Itemscreens.EditItemScreen.name+"/{item}",
-//            arguments = listOf(navArgument(name = "item") { type = NavType.StringType })
-//        ) {
-//            backStackEntry ->
-//
-//            // here we pass where this should lead us to
-//            EditItemScreen(navController = navController, backStackEntry.arguments?.getString("item"))
-//        }
+        composable(
+            Itemscreens.EditItemScreen.name+"/{itemID}",
+            arguments = listOf(navArgument(name = "itemID") { type = NavType.StringType })
+        ) {
+            backStackEntry ->
+
+            // here we pass where this should lead us to
+            backStackEntry.arguments?.getString("itemID")?.let {
+                EditItemScreen(
+                    navController = navController,
+                    it,
+                    onUpdateItem = onUpdateItem
+                )
+            }
+        }
     }
 }
