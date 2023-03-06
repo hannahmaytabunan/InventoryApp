@@ -1,6 +1,7 @@
 package com.example.inventoryapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -16,20 +17,21 @@ import com.example.inventoryapp.screens.items.ListItemScreen
 
 @Composable
 fun ItemNavigation(
-    itemViewModel: ItemViewModel = viewModel()
+    items: List<Item>,
+    onAddItem: (Item) -> Unit
 ) {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
         startDestination = Itemscreens.ListItemScreen.name
     ) {
-        val itemList = itemViewModel.getAllItems()
+//        val itemList = itemViewModel.itemList.collectAsState().value
 
         composable(Itemscreens.ListItemScreen.name) {
              // here we pass where this should lead us to
             ListItemScreen(
                 navController = navController,
-                list = itemList
+                list = items
             )
         }
 
@@ -38,7 +40,7 @@ fun ItemNavigation(
             AddItemScreen(
                 navController = navController,
                 onAddItem = {
-                    itemViewModel.addItem(it)
+                    onAddItem(it)
                 }
             )
         }

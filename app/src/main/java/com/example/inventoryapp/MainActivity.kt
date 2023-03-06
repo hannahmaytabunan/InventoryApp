@@ -6,12 +6,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.inventoryapp.data.ItemsDatasource
-import com.example.inventoryapp.models.Item
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventoryapp.navigation.ItemNavigation
+import com.example.inventoryapp.screens.ItemViewModel
 import com.example.inventoryapp.ui.theme.InventoryAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,10 +25,20 @@ class MainActivity : ComponentActivity() {
 //                val list = remember {
 //                    mutableStateListOf<Item>()
 //                }
-                ItemNavigation()
+                val itemViewModel = viewModel<ItemViewModel>()
+                InventoryApp(itemViewModel = itemViewModel)
             }
         }
     }
+}
+
+@Composable
+fun InventoryApp(itemViewModel: ItemViewModel) {
+    val itemsList = itemViewModel.itemList.collectAsState().value
+    ItemNavigation(
+        items = emptyList(),
+        onAddItem = {  }
+    )
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -49,6 +58,9 @@ fun DefaultPreview() {
 //        val list = remember {
 //            mutableStateListOf<Item>()
 //        }
-        ItemNavigation()
+//        ItemNavigation()
+
+        val itemViewModel = viewModel<ItemViewModel>()
+        InventoryApp(itemViewModel = itemViewModel)
     }
 }

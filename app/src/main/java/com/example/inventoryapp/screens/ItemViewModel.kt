@@ -36,9 +36,9 @@ class ItemViewModel @Inject constructor(private val repository: InventoryReposit
         }
     }
 
-    suspend fun addItem(item: Item) = viewModelScope.launch { repository.addItem(item) }
+    fun addItem(item: Item) = viewModelScope.launch { repository.addItem(item) }
 
-    suspend fun updateItem(item: Item) = viewModelScope.launch { repository.updateItem(item) }
+    fun updateItem(item: Item) = viewModelScope.launch { repository.updateItem(item) }
 
-    suspend fun removeItem(item: Item) = viewModelScope.launch { repository.deleteItem(item) }
+    fun removeItem(item: Item) = viewModelScope.launch { repository.deleteItem(item) }
 }
