@@ -36,8 +36,10 @@ class MainActivity : ComponentActivity() {
 fun InventoryApp(itemViewModel: ItemViewModel) {
     val itemsList = itemViewModel.itemList.collectAsState().value
     ItemNavigation(
-        items = emptyList(),
-        onAddItem = {  }
+        items = itemsList,
+        onAddItem = {
+            itemViewModel.addItem(it)
+        }
     )
 }
 
