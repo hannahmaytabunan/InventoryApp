@@ -20,7 +20,8 @@ import com.example.inventoryapp.screens.items.ListItemScreen
 fun ItemNavigation(
     items: List<Item>,
     onAddItem: (Item) -> Unit,
-    onUpdateItem: (Item) -> Unit
+    onUpdateItem: (Item) -> Unit,
+    onRemoveItem: (Item) -> Unit
 ) {
     val navController = rememberNavController()
     NavHost(
@@ -68,7 +69,8 @@ fun ItemNavigation(
                     navController = navController,
                     itemList = items,
                     it,
-                    onUpdateItem = onUpdateItem
+                    onUpdateItem = onUpdateItem,
+                    onRemoveItem = onRemoveItem
                 )
             }
         }

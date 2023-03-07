@@ -42,6 +42,9 @@ fun InventoryApp(itemViewModel: ItemViewModel) {
         },
         onUpdateItem = {
             itemViewModel.updateItem(it)
+        },
+        onRemoveItem = {
+            itemViewModel.removeItem(it)
         }
     )
 }

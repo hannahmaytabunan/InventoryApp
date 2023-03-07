@@ -6,7 +6,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha.disabled
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -22,6 +24,10 @@ import com.example.inventoryapp.components.ItemInputText
 import com.example.inventoryapp.models.Item
 import com.example.inventoryapp.navigation.Itemscreens
 import com.example.inventoryapp.util.UUIDConverter
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontStyle
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -29,7 +35,8 @@ fun EditItemScreen(
     navController: NavController,
     itemList: List<Item>,
     itemID: String,
-    onUpdateItem: (Item) -> Unit
+    onUpdateItem: (Item) -> Unit,
+    onRemoveItem: (Item) -> Unit
 ) {
     val fetchItem = itemList.filter { item ->
         item.id == UUIDConverter().uuidFromString(itemID)
@@ -48,6 +55,7 @@ fun EditItemScreen(
     }
     val context = LocalContext.current
 
+    var showDeleteConfirmation by remember { mutableStateOf(false) }
 
     Scaffold(topBar = {
         TopAppBar(
@@ -149,6 +157,59 @@ fun EditItemScreen(
                 }
             }
 //            }
+
+            Surface(modifier = Modifier.padding(vertical = 10.dp)) {
+                Button( onClick = {
+                    showDeleteConfirmation = true
+                }, modifier = Modifier.fillMaxWidth(),
+                    elevation = null,
+                    colors = ButtonDefaults.textButtonColors(
+                        backgroundColor = Color.Transparent,
+                    )
+                ) {
+                    Icon(imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete Icon",
+                        tint = Color.DarkGray,
+                        modifier = Modifier.clickable { navController.popBackStack() }
+                    )
+                    Text(
+                        text = "DELETE ITEM",
+                        color = Color.Black
+                    )
+                }
+            }
         }
+    }
+
+    if (showDeleteConfirmation) {
+        AlertDialog(
+            onDismissRequest = {
+                showDeleteConfirmation = false
+            },
+            title = {
+                Text(text = "Delete Item", style = MaterialTheme.typography.h5)
+            },
+            text = {
+               Text(text = "Are you sure you want to delete the item?")
+            },
+            confirmButton = {
+                TextButton(onClick = {
+                    onRemoveItem(item)
+                    Toast.makeText(context, "Item deleted", Toast.LENGTH_SHORT).show()
+                    navController.popBackStack()
+                    showDeleteConfirmation = false
+                }) {
+                    Text(text = "Delete")
+                }
+            },
+            modifier = Modifier.padding(10.dp),
+            dismissButton = {
+                TextButton(onClick = {
+                    showDeleteConfirmation = false
+                }) {
+                    Text(text = "Cancel")
+                }
+            },
+        )
     }
 }
