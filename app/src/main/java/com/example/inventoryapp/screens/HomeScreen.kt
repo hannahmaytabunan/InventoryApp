@@ -3,19 +3,26 @@ package com.example.inventoryapp.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.rounded.List
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.inventoryapp.components.DrawerContent
+import com.example.inventoryapp.components.ItemRow
+import com.example.inventoryapp.components.bottomBorder
+import com.example.inventoryapp.data.ItemsDatasource
 import com.example.inventoryapp.models.Item
 import com.example.inventoryapp.navigation.Itemscreens
 import kotlinx.coroutines.launch
@@ -68,22 +75,67 @@ fun HomeScreen(
         }
     ) {
         MainContent(
-            navController = navController,
+//            navController = navController,
             itemList = list
         )
     }
 }
-
+@Preview(showBackground = true)
 @Composable
 fun MainContent(
-    navController: NavController,
-    itemList: List<Item>
+//    navController: NavController,
+    itemList: List<Item> = emptyList()
 ) {
-    Surface(
-        color = MaterialTheme.colors.background
+    val list = ItemsDatasource().loadItems()
+
+    var charge by remember {
+        mutableStateOf(0.0)
+    }
+
+    Column(modifier = Modifier
+        .fillMaxWidth()
     ) {
-        Text(text  = "Hello World")
+        TopHeader(charge = charge)
+
+        Surface(
+            color = MaterialTheme.colors.background
+        ) {
+            LazyColumn {
+                items(list) { item ->
+                    ItemRow(item = item, onItemClicked = {
+                        charge += item.price
+                    })
+                }
+            }
+        }
     }
 }
 
-//@Preview(showBackground = true)
+@Composable
+fun TopHeader(
+    charge: Double
+) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 15.dp, bottom = 15.dp, start = 6.dp, end = 6.dp)
+            .height(100.dp),
+        color = Color(0xFF64ae64)
+    ) {
+        Column(modifier = Modifier.padding(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "Charge",
+                color = if (charge > 0.0) Color.White else Color.LightGray,
+                style = MaterialTheme.typography.h5
+            )
+            Text(
+                text = "$charge",
+                color = if (charge > 0.0) Color.White else Color.LightGray,
+                style = MaterialTheme.typography.h5
+            )
+        }
+    }
+}
