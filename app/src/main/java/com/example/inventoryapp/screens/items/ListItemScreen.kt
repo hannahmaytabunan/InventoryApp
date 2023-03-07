@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.List
 import androidx.compose.runtime.Composable
@@ -30,9 +31,15 @@ fun ListItemScreen(
                     Text(text = "Items", color = Color.White)
                 },
                 navigationIcon = {
-                    Icon(imageVector = Icons.Rounded.List,
-                        contentDescription = "Nav Icon",
-                        tint = Color.White)
+                    IconButton(onClick = {
+                        navController.navigate(
+                            route = Itemscreens.HomeScreen.name
+                        )
+                    }) {
+                        Icon(imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Arrow Back Icon",
+                            tint = Color.White)
+                    }
                 },
                 backgroundColor = Color(0xFF389738)
             )
