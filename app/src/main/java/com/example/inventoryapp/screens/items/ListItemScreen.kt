@@ -41,7 +41,7 @@ fun ListItemScreen(
                             tint = Color.White)
                     }
                 },
-                backgroundColor = Color(0xFF389738)
+                backgroundColor = MaterialTheme.colors.primaryVariant
             )
         } , floatingActionButton = {
             FloatingActionButton(
@@ -50,7 +50,7 @@ fun ListItemScreen(
                         route = Itemscreens.AddItemScreen.name
                     )
                 },
-                backgroundColor = Color(0xFF389738),
+                backgroundColor = MaterialTheme.colors.primaryVariant,
                 contentColor = Color.White
             ) {
                 Icon(

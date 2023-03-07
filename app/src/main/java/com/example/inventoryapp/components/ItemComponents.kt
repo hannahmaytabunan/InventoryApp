@@ -64,7 +64,8 @@ fun ItemButton(
     onClick: () -> Unit,
     enabled: Boolean = true,
     backgroundColor: Color,
-    contentColor: Color
+    contentColor: Color,
+    elevation: ButtonElevation?
 ) {
     Button(onClick = onClick,
         enabled = enabled,
@@ -72,7 +73,8 @@ fun ItemButton(
         colors = ButtonDefaults.textButtonColors(
             backgroundColor = backgroundColor,
             contentColor = contentColor
-        )
+        ),
+        elevation = elevation
     ) {
        Text(text)
     }

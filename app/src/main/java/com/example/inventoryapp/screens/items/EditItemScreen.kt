@@ -84,10 +84,11 @@ fun EditItemScreen(
                         }
                     },
                     backgroundColor = Color.Transparent,
-                    contentColor = Color.White
+                    contentColor = Color.White,
+                    elevation = null
                 )
             },
-            backgroundColor = Color(0xFF389738)
+            backgroundColor = MaterialTheme.colors.primaryVariant
         )
     }, backgroundColor = Color.LightGray) {
         Column {

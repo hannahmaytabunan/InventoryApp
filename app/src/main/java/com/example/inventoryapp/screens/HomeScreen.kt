@@ -113,7 +113,7 @@ fun TopHeader(
             .fillMaxWidth()
             .padding(top = 15.dp, bottom = 15.dp, start = 6.dp, end = 6.dp)
             .height(100.dp),
-        color = Color(0xFF64ae64)
+        color = MaterialTheme.colors.primaryVariant
     ) {
         Column(modifier = Modifier.padding(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

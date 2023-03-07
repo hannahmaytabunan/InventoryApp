@@ -20,7 +20,7 @@ fun DrawerContent(navController: NavController) {
         modifier = Modifier.fillMaxSize()
     ) {
         Row(
-            modifier = Modifier.background(Color(0xFF389738))
+            modifier = Modifier.background(MaterialTheme.colors.primaryVariant)
                 .fillMaxWidth()
         ) {
             Column(modifier = Modifier.padding(start = 24.dp, top = 48.dp, bottom = 48.dp)) {
