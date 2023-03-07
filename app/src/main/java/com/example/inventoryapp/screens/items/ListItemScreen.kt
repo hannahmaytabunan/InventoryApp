@@ -34,7 +34,7 @@ fun ListItemScreen(
                         contentDescription = "Nav Icon",
                         tint = Color.White)
                 },
-                backgroundColor = Color(0xFF2c2b3d)
+                backgroundColor = Color(0xFF389738)
             )
         } , floatingActionButton = {
             FloatingActionButton(
@@ -43,7 +43,7 @@ fun ListItemScreen(
                         route = Itemscreens.AddItemScreen.name
                     )
                 },
-                backgroundColor = Color(0xFF2c2b3d),
+                backgroundColor = Color(0xFF389738),
                 contentColor = Color.White
             ) {
                 Icon(

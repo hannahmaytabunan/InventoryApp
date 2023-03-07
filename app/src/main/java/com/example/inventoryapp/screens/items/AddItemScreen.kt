@@ -72,7 +72,7 @@ fun AddItemScreen(
                     contentColor = Color.White
                 )
             },
-            backgroundColor = Color(0xFF2c2b3d)
+            backgroundColor = Color(0xFF389738)
         )
     }, backgroundColor = Color.LightGray) {
             Column {
