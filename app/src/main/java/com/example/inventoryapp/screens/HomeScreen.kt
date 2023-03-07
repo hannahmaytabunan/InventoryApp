@@ -63,7 +63,7 @@ fun HomeScreen(
                         }
                     )
                 },
-                backgroundColor = Color(0xFF2c2b3d)
+                backgroundColor = Color(0xFF389738)
             )
         }
     ) {
