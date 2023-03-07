@@ -1,6 +1,7 @@
 package com.example.inventoryapp.navigation
 
 enum class Itemscreens {
+    HomeScreen,
     ListItemScreen,
     AddItemScreen,
     EditItemScreen;
@@ -8,10 +9,11 @@ enum class Itemscreens {
     companion object {
         fun fromRoute(route: String?): Itemscreens
         = when (route?.substringBefore("/")) {
+            HomeScreen.name -> HomeScreen
             ListItemScreen.name -> ListItemScreen
             AddItemScreen.name -> AddItemScreen
             EditItemScreen.name -> EditItemScreen
-            null -> ListItemScreen
+            null -> HomeScreen
             else -> throw IllegalArgumentException("Route $route is not recognized")
         }
     }

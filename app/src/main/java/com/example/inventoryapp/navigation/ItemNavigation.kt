@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.inventoryapp.models.Item
+import com.example.inventoryapp.screens.HomeScreen
 import com.example.inventoryapp.screens.ItemViewModel
 import com.example.inventoryapp.screens.items.AddItemScreen
 import com.example.inventoryapp.screens.items.EditItemScreen
@@ -24,9 +25,25 @@ fun ItemNavigation(
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = Itemscreens.ListItemScreen.name
+        startDestination = Itemscreens.HomeScreen.name
     ) {
 //        val itemList = itemViewModel.itemList.collectAsState().value
+
+        composable(Itemscreens.HomeScreen.name) {
+            // here we pass where this should lead us to
+            HomeScreen(
+                navController = navController,
+                list = items
+            )
+        }
+
+        composable(Itemscreens.ListItemScreen.name) {
+            // here we pass where this should lead us to
+            ListItemScreen(
+                navController = navController,
+                list = items
+            )
+        }
 
         composable(Itemscreens.ListItemScreen.name) {
              // here we pass where this should lead us to
