@@ -1,0 +1,60 @@
+package com.example.inventoryapp.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.List
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.inventoryapp.navigation.Itemscreens
+
+@Composable
+fun DrawerContent(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .padding(start = 24.dp, top = 48.dp)
+    ) {
+        Row(
+            modifier = Modifier.background(Color(0xFF389738))
+        ) {
+            Column(modifier = Modifier.padding(6.dp)) {
+                Text("Owner",
+//                modifier = Modifier.padding(16.dp),
+                    color = Color.White,
+                    style = MaterialTheme.typography.h5)
+                Text("POS 1",
+//                modifier = Modifier.padding(16.dp),
+                    color = Color.White,
+                    style = MaterialTheme.typography.caption
+                )
+                Text("EN-ventory System",
+//                modifier = Modifier.padding(16.dp),
+                    color = Color.White,
+                    style = MaterialTheme.typography.caption
+                )
+            }
+        }
+        Divider()
+        Spacer(Modifier.height(6.dp))
+        IconButton(onClick = {
+            navController.navigate(
+                route = Itemscreens.ListItemScreen.name
+            )
+        }) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Rounded.List,
+                    contentDescription = "Item Icon",
+                )
+                Spacer(modifier = Modifier.width(20.dp))
+                Text(text = "Items")
+            }
+        }
+    }
+}
