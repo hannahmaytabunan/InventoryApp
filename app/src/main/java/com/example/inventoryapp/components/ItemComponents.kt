@@ -3,6 +3,7 @@ package com.example.inventoryapp.components
 import android.service.autofill.OnClickAction
 import android.text.style.BackgroundColorSpan
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -16,6 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -106,19 +109,21 @@ fun ItemInputNumber(
 fun ItemRow(
     modifier: Modifier = Modifier,
     item: Item,
-    onItemClicked: (Item) -> Unit
+    onItemClicked: (Item) -> Unit,
+    hideStock: Boolean = false
 ) {
     Card(
         modifier
-            .padding(4.dp)
+//            .padding(bottom = 4.dp)
             .fillMaxWidth()
             .height(100.dp)
             .clickable {
                 onItemClicked(item)
             }
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
+        Row(modifier = Modifier.bottomBorder(strokeWidth = 1.dp, color = Color.LightGray, leftSpace = 75.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
         ) {
             Surface(modifier = Modifier
                 .padding(12.dp)
@@ -136,7 +141,9 @@ fun ItemRow(
 //                )
             }
 
-            Row(modifier = Modifier.fillMaxWidth().padding(4.dp),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(4.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -148,15 +155,17 @@ fun ItemRow(
                     )
 
 //                    Spacer(modifier = Modifier.width(5.dp))
-
-                    Text(text = "${item.stock} in stock",
-                        style = MaterialTheme.typography.caption
-                    )
+                    if (hideStock) {
+                        Text(text = "${item.stock} in stock",
+                            style = MaterialTheme.typography.caption
+                        )
+                    }
                 }
 
 //            Spacer(modifier = Modifier.width(60.dp))
                 Text(text = "$${item.price.toDouble()}",
-                    style = MaterialTheme.typography.caption
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.padding(end = 6.dp)
                 )
             }
         }
