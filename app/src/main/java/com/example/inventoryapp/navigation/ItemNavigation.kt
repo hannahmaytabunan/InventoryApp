@@ -74,6 +74,7 @@ fun ItemNavigation(
             backStackEntry.arguments?.getString("itemID")?.let {
                 EditItemScreen(
                     navController = navController,
+                    itemList = items,
                     it,
                     onUpdateItem = onUpdateItem
                 )

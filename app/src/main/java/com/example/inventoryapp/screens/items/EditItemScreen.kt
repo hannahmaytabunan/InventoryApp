@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -19,24 +20,31 @@ import com.example.inventoryapp.components.ItemButton
 import com.example.inventoryapp.components.ItemInputNumber
 import com.example.inventoryapp.components.ItemInputText
 import com.example.inventoryapp.models.Item
+import com.example.inventoryapp.navigation.Itemscreens
+import com.example.inventoryapp.util.UUIDConverter
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun EditItemScreen(
     navController: NavController,
+    itemList: List<Item>,
     itemID: String,
     onUpdateItem: (Item) -> Unit
 ) {
-    /*TODO: EDIT ITEM*/
+    val fetchItem = itemList.filter { item ->
+        item.id == UUIDConverter().uuidFromString(itemID)
+    }
+
+    val item = fetchItem.first()
 
     var name by remember {
-        mutableStateOf("")
+        mutableStateOf(item.name)
     }
     var price by remember {
-        mutableStateOf(0.0)
+        mutableStateOf(item.price)
     }
     var stock by remember {
-        mutableStateOf(0)
+        mutableStateOf(item.stock)
     }
     val context = LocalContext.current
 
@@ -57,9 +65,10 @@ fun EditItemScreen(
                 ItemButton(
                     text = "SAVE",
                     onClick = {
-                        if (name.isNotEmpty() && price.isNaN()) {
+                        if (name.isNotEmpty()) {
                             onUpdateItem(
                                 Item(
+                                    id = item.id,
                                     name = name,
                                     price = price,
                                     stock = stock
@@ -68,7 +77,10 @@ fun EditItemScreen(
                             name = ""
                             price = 0.0
                             stock = 0
-                            Toast.makeText(context, "Item added", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Item updated", Toast.LENGTH_SHORT).show()
+                            navController.navigate(
+                                route = Itemscreens.ListItemScreen.name
+                            )
                         }
                     },
                     backgroundColor = Color.Transparent,
