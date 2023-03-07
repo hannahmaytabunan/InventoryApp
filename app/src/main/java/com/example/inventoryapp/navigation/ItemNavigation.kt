@@ -38,14 +38,6 @@ fun ItemNavigation(
         }
 
         composable(Itemscreens.ListItemScreen.name) {
-            // here we pass where this should lead us to
-            ListItemScreen(
-                navController = navController,
-                list = items
-            )
-        }
-
-        composable(Itemscreens.ListItemScreen.name) {
              // here we pass where this should lead us to
             ListItemScreen(
                 navController = navController,
