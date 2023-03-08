@@ -73,13 +73,13 @@ fun HomeScreen(
         )
     }
 }
-@Preview(showBackground = true)
+//@Preview(showBackground = true)
 @Composable
 fun MainContent(
 //    navController: NavController,
     itemList: List<Item> = emptyList()
 ) {
-    val list = ItemsDatasource().loadItems()
+//    val list = ItemsDatasource().loadItems()
 
     var charge by remember {
         mutableStateOf(0.0)
@@ -94,7 +94,7 @@ fun MainContent(
             color = MaterialTheme.colors.background
         ) {
             LazyColumn {
-                items(list) { item ->
+                items(itemList) { item ->
                     ItemRow(item = item, onItemClicked = {
                         charge += item.price
                     })
